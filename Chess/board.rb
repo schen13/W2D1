@@ -1,4 +1,8 @@
+require_relative  'rook'
+require_relative  'piece'
 class Board
+
+
   SIZE = 8
   attr_reader :grid
 
@@ -16,8 +20,30 @@ class Board
     fresh_board
   end
 
+  def self.test_grid
+    test_board = Array.new(SIZE) {Array.new(SIZE)}
+  end
+
+  def populate
+    i = 0
+    j = 0
+    (0...SIZE).each do |i|
+      (0...SIZE).each do |j|
+        pos = [i,j]
+        if i <= 1
+          self[pos] = Rook.new(:black, self, pos)
+        elsif i >= 6
+          self[pos] = Rook.new(:white, self, pos)
+        else
+          self[pos] = @null
+        end
+      end
+    end
+  end
+
   def initialize(grid = Board.empty_grid)
     @grid = grid
+    @null = NullPiece.instance
   end
 
   def [](pos)
@@ -33,10 +59,10 @@ class Board
   def move_piece(start_pos, end_pos)
     raise ArgumentError.new("No piece at start position") if self[start_pos].is_a?(NullPiece)
     raise ArgumentError.new("Start Position Invalid") unless valid_pos?(start_pos)
-
     raise ArgumentError.new("End Position Invalid") unless valid_pos?(end_pos)
     self[end_pos] = self[start_pos]
-    self[start_pos] = NullPiece.new #NullPiece? shrug
+    self[end_pos].pos = end_pos
+    self[start_pos] = @null
   end
 
   def valid_pos?(pos)

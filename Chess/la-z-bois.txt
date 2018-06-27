@@ -1,6 +1,13 @@
+clear
+pry
 load 'piece.rb'
+load 'sliding_piece.rb'
+load 'rook.rb'
 load 'board.rb'
 load 'display.rb'
-board = Board.new
+board = Board.new(Board.test_grid)
+q
+board.populate
 display = Display.new(board)
+q
 display.get_user_input
