@@ -13,10 +13,6 @@ class Piece
     @pos = pos
   end
 
-  def moves
-
-  end
-
   def symbol
     "P"
   end

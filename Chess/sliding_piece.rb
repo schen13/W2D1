@@ -15,7 +15,7 @@ module SlidingPiece
 
   def moves
     moves = []
-    move_dirs.each { |dx, dy| moves.concat(grow_moves_in_dir(dx, dy) }
+    move_dirs.each { |dx, dy| moves.concat(grow_moves_in_dir(dx, dy)) }
     moves
   end
 
@@ -31,7 +31,7 @@ module SlidingPiece
     loop do
       new_pos[0] += dx
       new_pos[1] += dy
-      break if @board.valid_pos?(pos)
+      break unless @board.valid_pos?(new_pos)
       moves << new_pos.dup unless self.color == @board[new_pos].color
       break if @board[new_pos].is_a?(Piece) && !@board[new_pos].is_a?(NullPiece)
       # break unless self.valid_move?(new_pos)

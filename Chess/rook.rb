@@ -1,4 +1,5 @@
 require_relative 'sliding_piece'
+require_relative 'piece'
 
 class Rook < Piece
 
@@ -6,17 +7,11 @@ class Rook < Piece
 
   attr_reader :symbol
 
-  def initialize(color, board, pos)
-    super
+  def symbol
+    @color == :black ? "♜" : "♖"
   end
 
-  def symbol
-    if @color == :black
-      "♜"
-    else
-      "♖"
-    end
-  end
+  private
 
   def move_dirs
     horizontal_dirs
